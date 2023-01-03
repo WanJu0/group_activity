@@ -131,6 +131,24 @@ body {
 .wrapper section .taiwan_box .district.hsinchu:hover {
   opacity: 0.3;
 }
+.wrapper section .taiwan_box .district.miaoli {
+  left: -14px;
+  top: 111px;
+  width: 250px;
+  height: 250px;
+  background-image: url("../image/miaoli.svg");
+  transform: scale(1.17);
+  z-index: 80;
+}
+.wrapper section .taiwan_box .district.miaoli.show {
+  display: block;
+}
+.wrapper section .taiwan_box .district.miaoli.show.active {
+  opacity: 1;
+}
+.wrapper section .taiwan_box .district.miaoli:hover {
+  opacity: 0.3;
+}
 .wrapper section .taiwan_box .box_set {
   position: absolute;
   z-index: 50;
@@ -316,7 +334,6 @@ body {
   height: 100%;
   border-radius: 10px;
   box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
-  background-image: url("https://www.taiwan.net.tw/att/event/429235c1-f88a-4b2d-8815-8e7a041b8c7c.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

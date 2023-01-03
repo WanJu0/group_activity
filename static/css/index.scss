@@ -24,6 +24,8 @@ body{
       }
     }
   }
+
+
   section{
     display: flex;
     justify-content: center;
@@ -122,6 +124,24 @@ body{
           height: 300px;
           background-image: url('../image/hsinchu.svg');
           transform: scale(1.17);
+          &.show{
+            display: block;
+            &.active{
+              opacity: 1;
+            }
+          }
+          &:hover{
+            opacity: 0.3;
+          }
+        }
+        &.miaoli{
+          left: -14px;
+          top: 111px;
+          width: 250px;
+          height: 250px;
+          background-image: url('../image/miaoli.svg');
+          transform: scale(1.17);
+          z-index: 80;
           &.show{
             display: block;
             &.active{
@@ -314,7 +334,7 @@ body{
                 height: 100%;
                 border-radius: 10px;
                 box-shadow: 2px 2px 10px rgba(#fff, 0.2);
-                background-image: url('https://www.taiwan.net.tw/att/event/429235c1-f88a-4b2d-8815-8e7a041b8c7c.jpg');
+                // background-image: url('https://www.taiwan.net.tw/att/event/429235c1-f88a-4b2d-8815-8e7a041b8c7c.jpg');
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;

@@ -73,7 +73,7 @@ function taiwanInit(){
             north_districts.forEach((district) => {
               district.classList.remove("active");
             })
-          },200)
+          }, 200)
           northBox.style = "pointer-events: auto;"; 
           westBox.style = "pointer-events: auto;"; 
           southBox.style = "pointer-events: auto;"; 
@@ -108,7 +108,7 @@ function taiwanInit(){
             north.classList.remove("img_fade");
             south.classList.remove("img_fade");
             east.classList.remove("img_fade");
-          },200)
+          }, 200)
           northBox.style = "pointer-events: auto;"; 
           westBox.style = "pointer-events: auto;"; 
           southBox.style = "pointer-events: auto;"; 
@@ -137,7 +137,7 @@ function taiwanInit(){
             north.classList.remove("img_fade");
             west.classList.remove("img_fade");
             east.classList.remove("img_fade");
-          },200)
+          }, 200)
           northBox.style = "pointer-events: auto;"; 
           westBox.style = "pointer-events: auto;"; 
           southBox.style = "pointer-events: auto;"; 
@@ -166,7 +166,7 @@ function taiwanInit(){
             north.classList.remove("img_fade");
             west.classList.remove("img_fade");
             south.classList.remove("img_fade");
-          },200)
+          }, 200)
           northBox.style = "pointer-events: auto;"; 
           westBox.style = "pointer-events: auto;"; 
           southBox.style = "pointer-events: auto;"; 
@@ -231,6 +231,50 @@ function titleInit(){
 }
 
 
+
+const northUrlLst = [
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taipei?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/NewTaipei?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taoyuan?%24top=30&%24format=JSON",
+  // "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Hsinchu?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Keelung?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/HsinchuCounty?%24top=30&%24format=JSON"
+]
+
+const westUrlLst = [
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/MiaoliCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taichung?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/ChanghuaCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/YunlinCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/NantouCounty?%24top=30&%24format=JSON",
+]
+
+const southUrlLst = [
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Chiayi?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/ChiayiCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Tainan?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Kaohsiung?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/PenghuCounty?%24top=30&%24format=JSON"
+]
+
+const eastUrlLst = [
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/YilanCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/HualienCounty?%24top=30&%24format=JSON",
+  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/TaitungCounty?%24top=30&%24format=JSON"
+]
+
+let wholeUrls = [northUrlLst, westUrlLst, southUrlLst, eastUrlLst]
+
+function fetchIndexPage(){
+  let urlsLength = [northUrlLst.length, westUrlLst.length, southUrlLst.length, eastUrlLst.length];
+  let randomUrlIndex = urlsLength.map(item => Math.floor(Math.random()*item))
+
+  randomUrlIndex.forEach((r, index) => {
+    console.log(wholeUrls[index][r])
+  })
+}
+
+fetchIndexPage();
 
 // fetch("https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taipei?%24top=30&%24format=JSON")
 // .then((response) => response.json())
