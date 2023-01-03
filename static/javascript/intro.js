@@ -7,10 +7,93 @@ for(let i = 0; i< strAry.length; i++){
 }
 city = info[0]
 activityID = info[1]
-console.log(city)
-console.log(activityID)
+// console.log(city)
+// console.log(activityID)
 
-fetchEventApi(city, activityID)
+fetchEventApiNew(city, activityID)
+
+function fetchEventApiNew(city, activityID){
+    fetch("/api/intro/activities", {
+        method: "post",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "city": city,
+            "id": activityID,
+        }),
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data){
+            // console.log(data);
+            data = data.data;
+            let html = `
+            <div class="top">
+                <div class="event_info">
+                    <div class="event_category">${data.Class1}</div>
+                    <div class="event_activityName">${data.ActivityName}</div>
+                    <div class="event_location">${data.Location}</div>
+                    <div class="event_description">${data.Description}</div>
+                </div>
+                <div class="event_img">
+                    <img src="${data.Picture.PictureUrl1}">
+                </div>
+            </div>
+            <div class="middle">
+                <div class="middle_container">
+                    <div class="more_info">
+                        <div class="more_img">
+                            <img src="${data.Picture.PictureUrl2}">
+                        </div>
+                        <span>${data.Picture.PictureDescription2}</span>
+                    </div>
+                    <div class="more_info">
+                        <div class="more_img">
+                            <img src="${data.Picture.PictureUrl3}">
+                        </div>
+                        <span>${data.Picture.PictureDescription3}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="buttom">
+                <div class="details_info">
+                    <div class="details_location">
+                        <h3>活動位址</h3>
+                        <h4>${data.Location} ${data.Address}</h4>
+                    </div>
+                    <div class="details_startTime">
+                        <h3>開始時間</h3>
+                        <h4>${data.StartTime}</h4>  
+                    </div>
+                    <div class="details_endTime">
+                        <h3>結束時間</h3>
+                        <h4>${data.EndTime}</h4>
+                    </div>
+                    <div class="details_organizer">
+                        <h3>主辦單位</h3>
+                        <h4>${data.Organizer}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="back_to_list">
+                <button>總覽</button>
+            </div>
+            `
+
+            const main = document.querySelector("main");
+            main.insertAdjacentHTML('beforeEnd', html);
+
+            let button = document.querySelector("button");
+            button.onclick = ()=>{
+                window.location = "/";
+            }
+        }
+    })
+}
+
+
+// fetchEventApi(city, activityID)
 
 function fetchEventApi(city, activityID){
     fetchURL = "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/" + city + "?%24top=30&%24format=JSON"

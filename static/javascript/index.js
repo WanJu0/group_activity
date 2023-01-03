@@ -14,6 +14,7 @@ const northTitle = document.querySelector(".north_title");
 const westTitle = document.querySelector(".west_title");
 const southTitle = document.querySelector(".south_title");
 const eastTitle = document.querySelector(".east_title");
+const titles = document.querySelectorAll(".title");
 
 const northTitleH2 = document.querySelector(".north_title h2");
 const westTitleH2 = document.querySelector(".west_title h2");
@@ -230,54 +231,120 @@ function titleInit(){
   })
 }
 
+// fetchIndexPage();
+
+fetch("/api/home/activities")
+.then((response) => response.json())
+.then((data) => {
+  if(data){
+    console.log(data)
+    titles.forEach((title, i) => {
+      let pic1 = data.data[2*i].Picture.PictureUrl1;
+      if(pic1 === undefined){
+        pic1 = "/static/image/picture404_2.svg";
+      }
+
+      let pic2 = data.data[2*i+1].Picture.PictureUrl1;
+      if(pic2 === undefined){
+        pic2 = "/static/image/picture404_2.svg";
+      }
+
+      let address1 = data.data[2*i].Address;
+      if(address1 === undefined){
+        address1 = "";
+      }
+
+      let address2 = data.data[2*i+1].Address;
+      if(address2 === undefined){
+        address2 = "";
+      }
+
+      let city1 = cityTransfer(data.data[2*i].City)
+      let city2 = cityTransfer(data.data[2*i+1].City)
+
+      let html = `
+      <div class="title_rows">
+        <div class="attraction">
+          <a href="/activity?city=${city1}&activityID=${data.data[2*i].ActivityID}">
+            <div class="attraction_img_box">
+              <div class="attraction_img notfound"></div>
+              <div class="attraction_img found" style="background-image: url('${pic1}');"></div>
+            </div>
+          </a>
+          <h5 class="attraction_name">${data.data[2*i].ActivityName}</h5>
+          <h6 class="attraction_district">${data.data[2*i].City} ${address1}</h6>
+        </div>
+        <div class="attraction">
+          <a href="/activity?city=${city2}&activityID=${data.data[2*i+1].ActivityID}">
+            <div class="attraction_img_box">
+              <div class="attraction_img notfound"></div>
+              <div class="attraction_img found" style="background-image: url('${pic2}');"></div>
+            </div>
+          </a>
+          <h5 class="attraction_name">${data.data[2*i+1].ActivityName}</h5>
+          <h6 class="attraction_district">${data.data[2*i+1].City} ${address2}</h6>
+        </div>
+      </div>
+      `;
+      title.insertAdjacentHTML('beforeEnd', html);
+    })
+  }
+})
 
 
-const northUrlLst = [
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taipei?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/NewTaipei?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taoyuan?%24top=30&%24format=JSON",
-  // "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Hsinchu?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Keelung?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/HsinchuCounty?%24top=30&%24format=JSON"
-]
+function cityTransfer(chinese){
+  if(chinese === "基隆市"){
+    return "keelung"
+  }
+  if(chinese === "臺北市"){
+    return "taipei"
+  }
+  if(chinese === "新北市"){
+    return "newTaipei"
+  }
+  if(chinese === "桃園市"){
+    return "taoyuan"
+  }
 
-const westUrlLst = [
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/MiaoliCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taichung?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/ChanghuaCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/YunlinCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/NantouCounty?%24top=30&%24format=JSON",
-]
+  if(chinese === "苗栗縣"){
+    return "miaoliCounty"
+  }
+  if(chinese === "臺中市"){
+    return "taichung"
+  }
+  if(chinese === "彰化縣"){
+    return "changhuaCounty"
+  }
+  if(chinese === "雲林縣"){
+    return "yunlinCounty"
+  }
+  if(chinese === "南投縣"){
+    return "nantouCounty"
+  }
 
-const southUrlLst = [
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Chiayi?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/ChiayiCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Tainan?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Kaohsiung?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/PenghuCounty?%24top=30&%24format=JSON"
-]
+  if(chinese === "嘉義市"){
+    return "chiayi"
+  }
+  if(chinese === "嘉義縣"){
+    return "chiayiCounty"
+  }
+  if(chinese === "臺南市"){
+    return "tainan"
+  }
+  if(chinese === "高雄市"){
+    return "kaohsiung"
+  }
+  if(chinese === "屏東縣"){
+    return "pingtungCounty"
+  }
 
-const eastUrlLst = [
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/YilanCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/HualienCounty?%24top=30&%24format=JSON",
-  "https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/TaitungCounty?%24top=30&%24format=JSON"
-]
-
-let wholeUrls = [northUrlLst, westUrlLst, southUrlLst, eastUrlLst]
-
-function fetchIndexPage(){
-  let urlsLength = [northUrlLst.length, westUrlLst.length, southUrlLst.length, eastUrlLst.length];
-  let randomUrlIndex = urlsLength.map(item => Math.floor(Math.random()*item))
-
-  randomUrlIndex.forEach((r, index) => {
-    console.log(wholeUrls[index][r])
-  })
+  if(chinese === "宜蘭縣"){
+    return "yilanCounty"
+  }
+  if(chinese === "花蓮縣"){
+    return "hualienCounty"
+  }
+  if(chinese === "臺東縣"){
+    return "taitungCounty"
+  }
 }
-
-fetchIndexPage();
-
-// fetch("https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/Taipei?%24top=30&%24format=JSON")
-// .then((response) => response.json())
-// .then((data) => {
-//   console.log(data)
-// })
