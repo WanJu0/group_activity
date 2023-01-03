@@ -1,11 +1,13 @@
 from flask import *
-
+from api.home import *
 
 app=Flask(__name__)
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config["JSON_SORT_KEYS"]=False #可避免json自動排序
+
+app.register_blueprint(router_page_activity)
 
 @app.route("/")
 def index():
