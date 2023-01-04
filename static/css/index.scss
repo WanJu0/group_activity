@@ -326,8 +326,6 @@ body{
             transform: translateX(30px);
           }
           .title{
-            hr{
-            }
             .title_rows{
               display: grid;
               grid-template-columns: 1fr 1fr 1fr;
@@ -338,6 +336,12 @@ body{
                 .attraction_img_box{
                   width: 180px;
                   height: 120px;
+                }
+                .attraction_name{
+                  width: 180px;
+                }
+                .attraction_district{
+                  width: 180px;
                 }
               }
             }
