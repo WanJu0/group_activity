@@ -1,0 +1,38 @@
+.icon_logo{
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.logo{
+    width: 200px;
+    display: flex;
+    font-size: 30px;
+    cursor: pointer;
+}
+.icon_text{
+    align-items: center;
+    display: flex;
+    font-style: italic;
+    color: #9f58e1e6;
+}
+.marquee{
+    width: 1000px;
+    align-items: center;
+    display: flex;
+    height: 60px;
+    font-size: 20px;
+    margin-left: 100px;
+    color: olivedrab;
+}
+nav{
+    display: flex;
+    justify-content: center;
+}
+.marquee_icon{
+    align-items: center;
+    vertical-align: middle;
+    color: olivedrab;
+}
+a{
+    text-decoration: none;
+}

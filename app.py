@@ -1,5 +1,6 @@
 from flask import *
 from api.home import *
+from api.nav import *
 
 app=Flask(__name__)
 
@@ -8,6 +9,7 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config["JSON_SORT_KEYS"]=False #可避免json自動排序
 
 app.register_blueprint(router_page_activity)
+app.register_blueprint(router_page_nav)
 
 @app.route("/")
 def index():
