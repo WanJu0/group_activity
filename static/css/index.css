@@ -114,7 +114,7 @@ body {
 .wrapper section .taiwan_box .district.taoyuan:hover {
   opacity: 0.3;
 }
-.wrapper section .taiwan_box .district.hsinchu {
+.wrapper section .taiwan_box .district.hsinchuCounty {
   left: -310px;
   top: 415px;
   width: 300px;
@@ -122,13 +122,13 @@ body {
   background-image: url("../image/hsinchu.svg");
   transform: scale(1.17);
 }
-.wrapper section .taiwan_box .district.hsinchu.show {
+.wrapper section .taiwan_box .district.hsinchuCounty.show {
   display: block;
 }
-.wrapper section .taiwan_box .district.hsinchu.show.active {
+.wrapper section .taiwan_box .district.hsinchuCounty.show.active {
   opacity: 1;
 }
-.wrapper section .taiwan_box .district.hsinchu:hover {
+.wrapper section .taiwan_box .district.hsinchuCounty:hover {
   opacity: 0.3;
 }
 .wrapper section .taiwan_box .district.miaoli {

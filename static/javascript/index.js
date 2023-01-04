@@ -31,7 +31,7 @@ const keelung = document.querySelector(".keelung");
 const taipei = document.querySelector(".taipei");
 const newtaipeicity = document.querySelector(".newtaipeicity");
 const taoyuan = document.querySelector(".taoyuan");
-const hsinchu = document.querySelector(".hsinchu");
+const hsinchu = document.querySelector(".hsinchuCounty");
 const north_districts = document.querySelectorAll(".north_district");
 
 titleInit();
@@ -231,7 +231,7 @@ function titleInit(){
   })
 }
 
-// fetchIndexPage();
+fetchIndexPage();
 
 fetch("/api/home/activities")
 .then((response) => response.json())
