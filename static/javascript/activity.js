@@ -56,9 +56,9 @@ function getActivityAndRender(param, hr){
             hasTitleRows.remove();
         }
         const divAttribute = param.getAttribute("class");
-        let county = divAttribute.split(" ")[0].charAt(0).toUpperCase() + divAttribute.split(" ")[0].slice(1);
-        if (county === "Newtaipeicity"){
-            county = "NewTaipei";
+        let county = divAttribute.split(" ")[0];
+        if (county === "newtaipeicity"){
+            county = "newTaipei";
         }
         // url = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/${county}?%24top=30&%24format=JSON`
         url = `/api/activities/${county}`

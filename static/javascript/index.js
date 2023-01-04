@@ -1,3 +1,5 @@
+import { fetchCity, cityTransfer } from "./index2.js"
+
 const wrapper = document.querySelector(".wrapper");
 const attractionBox = document.querySelector(".attraction_box");
 
@@ -16,10 +18,10 @@ const southTitle = document.querySelector(".south_title");
 const eastTitle = document.querySelector(".east_title");
 const titles = document.querySelectorAll(".title");
 
-const northTitleH2 = document.querySelector(".north_title h2");
-const westTitleH2 = document.querySelector(".west_title h2");
-const southTitleH2 = document.querySelector(".south_title h2");
-const eastTitleH2 = document.querySelector(".east_title h2");
+// const northTitleH2 = document.querySelector(".north_title h2");
+// const westTitleH2 = document.querySelector(".west_title h2");
+// const southTitleH2 = document.querySelector(".south_title h2");
+// const eastTitleH2 = document.querySelector(".east_title h2");
 
 // insideBox 不需要做
 const northInsideBox = document.querySelector(".north_inside_box");
@@ -33,6 +35,9 @@ const newtaipeicity = document.querySelector(".newtaipeicity");
 const taoyuan = document.querySelector(".taoyuan");
 const hsinchu = document.querySelector(".hsinchuCounty");
 const north_districts = document.querySelectorAll(".north_district");
+
+let cityIsClick = false;
+let tempNorth;
 
 titleInit();
 taiwanInit();
@@ -49,12 +54,24 @@ function taiwanInit(){
     southBox.style = "pointer-events: none;"; 
     eastBox.style = "pointer-events: none;";
 
+    keelung.style = "pointer-events: none;";
+    taipei.style = "pointer-events: none;";
+    newtaipeicity.style = "pointer-events: none;";
+    taoyuan.style = "pointer-events: none;";
+    hsinchu.style = "pointer-events: none;";
+
     setTimeout(()=>{
       keelung.classList.add("show");
       taipei.classList.add("show");
       newtaipeicity.classList.add("show");
       taoyuan.classList.add("show");
       hsinchu.classList.add("show");
+
+      keelung.style = "pointer-events: auto;";
+      taipei.style = "pointer-events: auto;";
+      newtaipeicity.style = "pointer-events: auto;";
+      taoyuan.style = "pointer-events: auto;";
+      hsinchu.style = "pointer-events: auto;";
     }, 1000)
 
     setTimeout(()=>{
@@ -85,6 +102,15 @@ function taiwanInit(){
           newtaipeicity.classList.remove("show");
           taoyuan.classList.remove("show");
           hsinchu.classList.remove("show");
+
+          setTimeout(()=>{
+            attractionBox.classList.remove("big_district_out");
+            northTitle.classList.remove("title_off");
+
+          }, 300)
+          document.querySelector(".detail_box").classList.remove("show");   
+          cityIsClick = false;
+
           wrapper.removeEventListener("click", out);
         }
       })
@@ -172,7 +198,6 @@ function taiwanInit(){
           westBox.style = "pointer-events: auto;"; 
           southBox.style = "pointer-events: auto;"; 
           eastBox.style = "pointer-events: auto;";
-
           wrapper.removeEventListener("click", out);
         }
       })
@@ -184,6 +209,50 @@ function districtClickInit(){
   north_districts.forEach((district, index)=>{
     district.onclick = ()=>{
       district.classList.add("active");
+      attractionBox.classList.add("big_district_out");
+
+      // keelung
+      if(index == 0){
+        if(tempNorth == index){
+          return
+        }
+        cityClick("keelung", tempNorth, index);
+        tempNorth = index;
+      }
+      // taipei
+      if(index == 1){ 
+        if(tempNorth == index){
+          return
+        }
+        cityClick("taipei");
+        tempNorth = index;
+
+      }
+      // newTaipei
+      if(index == 2){ 
+        if(tempNorth == index){
+          return
+        }
+        cityClick("newTaipei");
+        tempNorth = index;
+      }
+      // taoyuan
+      if(index == 3){ 
+        if(tempNorth == index){
+          return
+        }
+        cityClick("taoyuan");
+        tempNorth = index;
+      }
+      // hsinchuCounty
+      if(index == 4){ 
+        if(tempNorth == index){
+          return
+        }
+        cityClick("hsinchuCounty");
+        tempNorth = index;
+      }
+
       north_districts.forEach((dis, j)=>{
         if(index != j){
           dis.classList.remove("active");
@@ -192,6 +261,20 @@ function districtClickInit(){
     }
   })
 }
+
+function cityClick(city){
+  if(cityIsClick){
+    document.querySelector(".detail_box").classList.remove("show");
+  }
+  titles.forEach(title => {
+    title.classList.add("title_off");
+  })
+  setTimeout(()=>{
+    fetchCity(city);
+  }, 300)
+  cityIsClick = true;
+}
+
 
 
 function titleInit(){
@@ -229,15 +312,19 @@ function titleInit(){
       }
     }
   })
+
+  setTimeout(()=>{
+    northTitle.classList.remove("title_off");
+  }, 100)
 }
 
-fetchIndexPage();
+// fetchIndexPage();
 
 fetch("/api/home/activities")
 .then((response) => response.json())
 .then((data) => {
   if(data){
-    console.log(data)
+    // console.log(data)
     titles.forEach((title, i) => {
       let pic1 = data.data[2*i].Picture.PictureUrl1;
       if(pic1 === undefined){
@@ -249,14 +336,24 @@ fetch("/api/home/activities")
         pic2 = "/static/image/picture404_2.svg";
       }
 
-      let address1 = data.data[2*i].Address;
-      if(address1 === undefined){
-        address1 = "";
+      // let address1 = data.data[2*i].Address;
+      // if(address1 === undefined){
+      //   address1 = "";
+      // }
+
+      // let address2 = data.data[2*i+1].Address;
+      // if(address2 === undefined){
+      //   address2 = "";
+      // }
+
+      let location1 = data.data[2*i].Location;
+      if(location1 === "to see the official site"){
+        location1 = "請查詢官網"
       }
 
-      let address2 = data.data[2*i+1].Address;
-      if(address2 === undefined){
-        address2 = "";
+      let location2 = data.data[2*i+1].Location;
+      if(location2 === "to see the official site"){
+        location2 = "請查詢官網"
       }
 
       let city1 = cityTransfer(data.data[2*i].City)
@@ -272,7 +369,7 @@ fetch("/api/home/activities")
             </div>
           </a>
           <h5 class="attraction_name">${data.data[2*i].ActivityName}</h5>
-          <h6 class="attraction_district">${data.data[2*i].City} ${address1}</h6>
+          <h6 class="attraction_district">${location1}</h6>
         </div>
         <div class="attraction">
           <a href="/activity?city=${city2}&activityID=${data.data[2*i+1].ActivityID}">
@@ -282,7 +379,7 @@ fetch("/api/home/activities")
             </div>
           </a>
           <h5 class="attraction_name">${data.data[2*i+1].ActivityName}</h5>
-          <h6 class="attraction_district">${data.data[2*i+1].City} ${address2}</h6>
+          <h6 class="attraction_district">${location2}</h6>
         </div>
       </div>
       `;
@@ -292,59 +389,3 @@ fetch("/api/home/activities")
 })
 
 
-function cityTransfer(chinese){
-  if(chinese === "基隆市"){
-    return "keelung"
-  }
-  if(chinese === "臺北市"){
-    return "taipei"
-  }
-  if(chinese === "新北市"){
-    return "newTaipei"
-  }
-  if(chinese === "桃園市"){
-    return "taoyuan"
-  }
-
-  if(chinese === "苗栗縣"){
-    return "miaoliCounty"
-  }
-  if(chinese === "臺中市"){
-    return "taichung"
-  }
-  if(chinese === "彰化縣"){
-    return "changhuaCounty"
-  }
-  if(chinese === "雲林縣"){
-    return "yunlinCounty"
-  }
-  if(chinese === "南投縣"){
-    return "nantouCounty"
-  }
-
-  if(chinese === "嘉義市"){
-    return "chiayi"
-  }
-  if(chinese === "嘉義縣"){
-    return "chiayiCounty"
-  }
-  if(chinese === "臺南市"){
-    return "tainan"
-  }
-  if(chinese === "高雄市"){
-    return "kaohsiung"
-  }
-  if(chinese === "屏東縣"){
-    return "pingtungCounty"
-  }
-
-  if(chinese === "宜蘭縣"){
-    return "yilanCounty"
-  }
-  if(chinese === "花蓮縣"){
-    return "hualienCounty"
-  }
-  if(chinese === "臺東縣"){
-    return "taitungCounty"
-  }
-}
