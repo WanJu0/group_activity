@@ -333,6 +333,12 @@ body {
   width: 180px;
   height: 120px;
 }
+.wrapper section .ability_outter .attraction_box.detail_box .title .title_rows .attraction .attraction_name {
+  width: 180px;
+}
+.wrapper section .ability_outter .attraction_box.detail_box .title .title_rows .attraction .attraction_district {
+  width: 180px;
+}
 .wrapper section .ability_outter .attraction_box .title {
   color: #fff;
 }

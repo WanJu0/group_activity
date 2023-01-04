@@ -7,7 +7,6 @@ function fetchCity(city){
   .then((data) => {
     if(data.data){
       detailBox.replaceChildren();
-      console.log(data.data)
       createCityDetails(data.data);
     }
   })

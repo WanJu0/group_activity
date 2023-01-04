@@ -1,5 +1,6 @@
 from flask import *
 from api.get_activity import *
+from api.nav import *
 
 app=Flask(__name__)
 
@@ -9,6 +10,7 @@ app.config["JSON_SORT_KEYS"]=False #可避免json自動排序
 
 
 app.register_blueprint(router_page_activity)
+app.register_blueprint(router_page_nav)
 
 
 @app.route("/")
