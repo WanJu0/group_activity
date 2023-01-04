@@ -1,5 +1,5 @@
 from flask import *
-from data.db import *
+from api.db import *
 from utils.tool_func import *
 
 router_page_activity = Blueprint("router_page_activity", __name__, template_folder="templates")
@@ -59,3 +59,9 @@ def intro_activities():
     return {"error": True}, 200
 
   return {"data": result}, 200
+
+
+@router_page_activity.route("/api/activities/<county>")
+def activities(county):
+  data = openJson(county)
+  return {"data": data}, 200
