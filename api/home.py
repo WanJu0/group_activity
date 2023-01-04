@@ -59,3 +59,10 @@ def intro_activities():
     return {"error": True}, 200
 
   return {"data": result}, 200
+
+
+@router_page_activity.route("/api/activities/<county>")
+def activities(county):
+  with open(f"./data/{county}.json", encoding="utf-8") as file:
+    data = json.load(file)
+  return jsonify(data)

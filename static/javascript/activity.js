@@ -3,7 +3,7 @@ const taipeiDistrict = document.querySelector(".taipei");
 const keelungDistrict = document.querySelector(".keelung");
 const newTaipeiDistrict = document.querySelector(".newtaipeicity");
 const taoyuanDistrict = document.querySelector(".taoyuan");
-const hsinchuDistrict = document.querySelector(".hsinchu");
+const hsinchuCountyDistrict = document.querySelector(".hsinchuCounty");
 
 const hr2 = document.querySelector("#hr2");// 第二條分隔線 放中區資料
 const miaoliCountyDistrict = document.querySelector(".miaoliCounty");
@@ -28,7 +28,7 @@ getActivityAndRender(taipeiDistrict, hr1);
 getActivityAndRender(keelungDistrict, hr1);
 getActivityAndRender(newTaipeiDistrict, hr1);
 getActivityAndRender(taoyuanDistrict, hr1);
-getActivityAndRender(hsinchuDistrict, hr1);
+getActivityAndRender(hsinchuCountyDistrict, hr1);
 
 // 中區活動資料
 getActivityAndRender(miaoliCountyDistrict, hr2);
@@ -60,9 +60,9 @@ function getActivityAndRender(param, hr){
         if (county === "Newtaipeicity"){
             county = "NewTaipei";
         }
-        url = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/${county}?%24top=30&%24format=JSON`
+        // url = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity/${county}?%24top=30&%24format=JSON`
+        url = `/api/activities/${county}`
         fetch(url).then((response)=>(response.json())).then((responseData)=>{
-            
             // 大容器
             const titleRows = document.createElement("div");
             titleRows.className = "title_rows";
@@ -70,6 +70,7 @@ function getActivityAndRender(param, hr){
                 // 活動小容器
                 const attraction = document.createElement("div");
                 attraction.className = "attraction";
+                attraction.style.cursor = "pointer";
                 attraction.setAttribute("city", county);
                 attraction.setAttribute("activityid", element.ActivityID)
 
@@ -77,9 +78,14 @@ function getActivityAndRender(param, hr){
                 const attractionImgBox = document.createElement("div");
                 attractionImgBox.className = "attraction_img_box";
                 const attractionImg = document.createElement("img");
-                attractionImg.className = "attraction_img";
+                attractionImg.setAttribute("class", "attraction_img found");
                 attractionImg.src = element.Picture.PictureUrl1;
                 attractionImgBox.appendChild(attractionImg);
+                
+                const imgNotFound = document.createElement("img");
+                imgNotFound.setAttribute("class", "attraction_img notfound");
+                attractionImgBox.appendChild(imgNotFound)
+
                 attraction.appendChild(attractionImgBox);
 
                 // 活動名稱
